@@ -1,0 +1,35 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "adversarial",
+  "version": "0.1.0",
+  "description": "Triage, score, and govern your organization's risks, incidents, and compliance policies in Adversarial Risk Management.",
+  "author": {
+    "name": "Adversarial",
+    "url": "https://adversarial.com"
+  },
+  "homepage": "https://adversarial.com",
+  "keywords": ["security", "risk", "incidents", "compliance", "grc"],
+  "extensions": {
+    "com.openai": {
+      "onboardingSkill": "./skills/onboarding/SKILL.md",
+      "interface": {
+        "displayName": "Adversarial",
+        "shortDescription": "Risks, incidents, and compliance policies",
+        "longDescription": "Work your Adversarial risk register from chat: find and score risks against your methodology, log and triage incidents, comment and assign owners, and review compliance policy changes. Every action runs with your own Adversarial permissions.",
+        "developerName": "Adversarial",
+        "category": "Productivity",
+        "capabilities": ["Read", "Write"],
+        "websiteURL": "https://adversarial.com",
+        "privacyPolicyURL": "https://adversarial.com/privacy",
+        "defaultPrompt": [
+          "@Adversarial show my open critical and high risks.",
+          "@Adversarial log an incident for this alert and suggest a severity.",
+          "@Adversarial compare our access control policy with yours and propose changes."
+        ],
+        "brandColor": "#7008E7",
+        "composerIcon": "./assets/logo.svg",
+        "logo": "./assets/logo.svg"
+      }
+    }
+  }
+}

@@ -1,0 +1,29 @@
+---
+name: risk-intake
+description: Turn a finding, scan result, audit note, or conversation into a well-formed Adversarial risk, or rescore an existing one against the organization's risk methodology. Checks for duplicates, uses only the organization's own sources, tags and threat objectives, and records likelihood and impact with reasoning. Use when the user asks to log, file, create, rate, score, or rescore a risk, or pastes a vulnerability or finding to track.
+---
+
+# Risk intake and scoring
+
+## New risk
+
+1. **Check for duplicates first.** Call `list_risks` with a `query` built from the finding's key terms. If an open risk already covers it, show it and offer to comment on or update it instead of creating another.
+2. **Discover valid values before writing.** Call these in parallel:
+   - `list_risk_sources`: `source` must be one of these strings.
+   - `get_threat_profile`: `threat_objectives` names must come from here.
+   - `list_tags`: reuse an existing tag before calling `create_tag`.
+3. **Score with the organization's methodology.** Call `get_compliance_document` with slug `ramp`.
+   - Pick `likelihood` and `impact` from its definitions.
+   - Write `likelihood_reasoning` and `impact_reasoning` that cite the criteria you applied.
+   - Never pass `urgency`. Adversarial computes it from likelihood × impact.
+4. **Pick the type and assignee.**
+   - Choose `type` from the risk types the server lists.
+   - For `assigned_to`, use the name or email the user gave. If a name is ambiguous, ask which candidate they mean rather than guessing.
+5. **Confirm, then create.** Show the user the title, description, source, type, likelihood and impact with reasoning, threat objectives, tags and assignee in one compact block. Call `create_risk` only after they confirm. Then report the new `RSK-<n>`.
+
+## Rescoring an existing risk
+
+1. Call `get_risk` to read the current scores and reasoning.
+2. Call `get_compliance_document` with slug `ramp` for the methodology.
+3. Explain what changed and why. Then call `update_risk` with `likelihood`, `impact`, `likelihood_reasoning` and `impact_reasoning`.
+4. If the score moved by more than one level, offer to add a comment explaining the change with `add_risk_comment`.

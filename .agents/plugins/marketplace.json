@@ -1,0 +1,17 @@
+{
+  "name": "adversarial",
+  "plugins": [
+    {
+      "name": "adversarial",
+      "source": {
+        "source": "local",
+        "path": "./plugins/adversarial"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Productivity"
+    }
+  ]
+}
