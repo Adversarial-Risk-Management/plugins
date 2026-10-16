@@ -59,7 +59,7 @@ jq --slurpfile mcp "$src/mcp.json" '
         name: .author.name,
         websiteUrl: .homepage,
         privacyUrl: $ui.privacyPolicyURL,
-        termsOfUseUrl: $ms.termsOfUseUrl
+        termsOfUseUrl: $ui.termsOfServiceURL
       },
       name: {short: $ui.displayName, full: "\($ui.displayName) Risk Management"},
       description: {short: $ui.shortDescription, full: $ui.longDescription, features: $ms.features},
