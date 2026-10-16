@@ -17,7 +17,7 @@ description: Turn a finding, scan result, audit note, or conversation into a wel
    - Write `likelihood_reasoning` and `impact_reasoning` that cite the criteria you applied.
    - Never pass `urgency`. Adversarial computes it from likelihood × impact.
 4. **Pick the type and assignee.**
-   - Choose `type` from the risk types the server lists.
+   - Choose `type` from `Code`, `Configuration`, `Control Deficiency`, `Policy`, `Procedural`, `Vulnerability` or `Third-party`.
    - For `assigned_to`, use the name or email the user gave. If a name is ambiguous, ask which candidate they mean rather than guessing.
 5. **Confirm, then create.** Show the user the title, description, source, type, likelihood and impact with reasoning, threat objectives, tags and assignee in one compact block. Call `create_risk` only after they confirm. Then report the new `RSK-<n>`.
 
@@ -25,5 +25,5 @@ description: Turn a finding, scan result, audit note, or conversation into a wel
 
 1. Call `get_risk` to read the current scores and reasoning.
 2. Call `get_compliance_document` with slug `ramp` for the methodology.
-3. Explain what changed and why. Then call `update_risk` with `likelihood`, `impact`, `likelihood_reasoning` and `impact_reasoning`.
+3. **Confirm, then update.** Show the current and proposed likelihood and impact side by side, with the reasoning for each change. Call `update_risk` with `likelihood`, `impact`, `likelihood_reasoning` and `impact_reasoning` only after the user confirms.
 4. If the score moved by more than one level, offer to add a comment explaining the change with `add_risk_comment`.

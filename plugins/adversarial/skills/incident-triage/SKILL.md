@@ -7,7 +7,7 @@ description: Log and triage security incidents in Adversarial. Creates incidents
 
 ## Opening an incident
 
-1. **Check for an existing incident.** Call `list_incidents` with a `query` built from the alert's key terms and a status other than `Closed`. If one exists, update it or link the new one as a child with `parent_id`.
+1. **Check for an existing incident.** Call `list_incidents` with a `query` built from the alert's key terms and `status` `New`, `In Progress` and `Review`. If one exists, update it or link the new one as a child with `parent_id`.
 2. **Discover valid values.** Call these in parallel:
    - `list_incident_sources`: `source` must be one of these strings.
    - `get_threat_profile`: for threat objectives.
@@ -28,4 +28,4 @@ description: Log and triage security incidents in Adversarial. Creates incidents
 
 ## Status summary
 
-Call `list_incidents` with a status other than `Closed`, then group the results by severity. For each SEV-1 and SEV-2, include its owner and the date of the last update (from `get_incident` or `list_incident_comments`). Flag any incident with no recent update.
+Call `list_incidents` with `status` `New`, `In Progress` and `Review`, then group the results by severity. For each SEV-1 and SEV-2, include its owner and the date of the last update (from `get_incident` or `list_incident_comments`). Flag any incident with no recent update.
