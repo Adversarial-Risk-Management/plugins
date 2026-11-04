@@ -4,7 +4,7 @@ on:
   pull_request:
   push:
     branches: [main]
-    tags: ["v*"]
+    tags: ["[0-9][0-9][0-9][0-9].[0-9][0-9].[0-9][0-9]"]
 
 permissions:
   contents: write
@@ -26,12 +26,14 @@ jobs:
           pipx run check-jsonschema --schemafile https://agent-plugins.org/schemas/1.0.0/mcp.schema.json plugins/adversarial/mcp.json
 
       - name: Publish release
-        if: startsWith(github.ref, 'refs/tags/v')
+        if: startsWith(github.ref, 'refs/tags/')
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
           version=$(jq -r .version plugins/adversarial/plugin.json)
-          if [[ "${GITHUB_REF_NAME}" != "v$version" ]]; then
+          # Tags are zero-padded dates (2026.11.04); manifest versions can't have leading zeros.
+          expected=$(awk -F. '{printf "%d.%d.%d", $1, $2, $3}' <<<"$GITHUB_REF_NAME")
+          if [[ "$expected" != "$version" ]]; then
             echo "tag ${GITHUB_REF_NAME} doesn't match plugin.json version $version" >&2
             exit 1
           fi

@@ -28,6 +28,6 @@ Each release attaches one zip per host, all built from `plugins/adversarial/` by
 
 The M365 manifest is generated from `plugin.json`: descriptions come from the `com.openai` interface, and `extensions.com.microsoft` holds the fields only Microsoft uses. Its `id` identifies the app to Microsoft 365, so never change it. The connector declares no authorization, so Cowork registers its own OAuth client through the Adversarial MCP server's dynamic client registration.
 
-To release, bump `version` in `plugin.json` and in the `.claude-plugin/marketplace.json` entry, then push a `v<version>` tag. The Release workflow builds the zips, validates the manifests, and publishes the GitHub release.
+To release, bump `version` in `plugin.json` and in the `.claude-plugin/marketplace.json` entry, then push a date tag like the platform repo's, zero-padded (`2026.11.04` for version `2026.11.4`). The Release workflow builds the zips, validates the manifests, and publishes the GitHub release.
 
 Check changes with `scripts/build.sh`, `claude plugin validate .` and `claude plugin validate plugins/adversarial`.
