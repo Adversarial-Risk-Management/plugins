@@ -1,0 +1,38 @@
+name: Release
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+    tags: ["v*"]
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Build zips
+        run: scripts/build.sh
+
+      - name: Validate manifests
+        run: |
+          mkdir -p /tmp/m365 && unzip -q dist/adversarial-m365-*.zip -d /tmp/m365
+          pipx run check-jsonschema --schemafile https://developer.microsoft.com/json-schemas/teams/v1.29/MicrosoftTeams.schema.json /tmp/m365/manifest.json
+          pipx run check-jsonschema --schemafile https://agent-plugins.org/schemas/1.0.0/plugin.schema.json plugins/adversarial/plugin.json
+          pipx run check-jsonschema --schemafile https://agent-plugins.org/schemas/1.0.0/mcp.schema.json plugins/adversarial/mcp.json
+
+      - name: Publish release
+        if: startsWith(github.ref, 'refs/tags/v')
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          version=$(jq -r .version plugins/adversarial/plugin.json)
+          if [[ "${GITHUB_REF_NAME}" != "v$version" ]]; then
+            echo "tag ${GITHUB_REF_NAME} doesn't match plugin.json version $version" >&2
+            exit 1
+          fi
+          gh release create "$GITHUB_REF_NAME" dist/*.zip --title "$GITHUB_REF_NAME" --generate-notes

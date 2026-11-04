@@ -8,28 +8,57 @@
     "url": "https://adversarial.com"
   },
   "homepage": "https://adversarial.com",
-  "keywords": ["security", "risk", "incidents", "compliance", "grc"],
+  "keywords": [
+    "security",
+    "risk",
+    "incidents",
+    "compliance",
+    "grc"
+  ],
   "extensions": {
     "com.openai": {
       "onboardingSkill": "./skills/onboarding/SKILL.md",
       "interface": {
         "displayName": "Adversarial",
-        "shortDescription": "Risks, incidents, and compliance policies",
+        "shortDescription": "Risks, incidents, and policies",
         "longDescription": "Work your Adversarial risk register from chat: find and score risks against your methodology, log and triage incidents, comment and assign owners, and review compliance policy changes. Every action runs with your own Adversarial permissions.",
         "developerName": "Adversarial",
         "category": "Productivity",
-        "capabilities": ["Read", "Write"],
+        "capabilities": [
+          "Read",
+          "Write"
+        ],
         "websiteURL": "https://adversarial.com",
         "privacyPolicyURL": "https://adversarial.com/privacy",
         "defaultPrompt": [
-          "@Adversarial show my open critical and high risks.",
-          "@Adversarial log an incident for this alert and suggest a severity.",
-          "@Adversarial compare our access control policy with yours and propose changes."
+          "Show my open critical and high risks.",
+          "Log an incident for this alert and suggest a severity.",
+          "Compare our access control policy with yours and propose changes."
         ],
         "brandColor": "#7008E7",
         "composerIcon": "./assets/logo.svg",
-        "logo": "./assets/logo.svg"
+        "logo": "./assets/logo.svg",
+        "supportURL": "https://adversarial.com/contact",
+        "termsOfServiceURL": "https://adversarial.com/tos"
       }
+    },
+    "com.microsoft": {
+      "id": "39a0dac9-0605-4bab-8549-82abc44e0eaa",
+      "accentColor": "#7008E7",
+      "features": [
+        {
+          "title": "Score and file risks",
+          "description": "Turn findings into risks scored against your own risk methodology, with likelihood and impact reasoning."
+        },
+        {
+          "title": "Triage incidents",
+          "description": "Log incidents from alerts or chat, set severity against your response plan, and keep status current."
+        },
+        {
+          "title": "Close policy gaps",
+          "description": "Compare a policy with your approved compliance documents and propose changes as one reviewable batch."
+        }
+      ]
     }
   }
 }
