@@ -35,9 +35,10 @@
           "Log an incident for this alert and suggest a severity.",
           "Compare our access control policy with yours and propose changes."
         ],
-        "brandColor": "#7008E7",
+        "brandColor": "#000000",
         "composerIcon": "./assets/logo.svg",
         "logo": "./assets/logo.svg",
+        "logoDark": "./assets/logo-dark.svg",
         "supportURL": "https://adversarial.com/contact",
         "termsOfServiceURL": "https://adversarial.com/tos"
       }
