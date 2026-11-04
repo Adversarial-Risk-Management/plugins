@@ -7,7 +7,7 @@ description: Turn a finding, scan result, audit note, or conversation into a wel
 
 ## New risk
 
-1. **Check for duplicates first.** Call `list_risks` with a `query` built from the finding's key terms. If an open risk already covers it, show it and offer to comment on or update it instead of creating another.
+1. **Check for duplicates first.** Call `list_risks` with a `query` of two or three distinctive terms from the finding, such as a CVE, product or hostname. Every word must appear in the risk's title, description, remediation task, control statement or comments, so a long query misses near-duplicates. If nothing matches, try one other set of terms before concluding there is none. If an open risk already covers it, show it and offer to comment on or update it instead of creating another.
 2. **Discover valid values before writing.** Call these in parallel:
    - `list_risk_sources`: `source` must be one of these strings.
    - `get_threat_profile`: `threat_objectives` names must come from here.

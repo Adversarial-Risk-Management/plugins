@@ -14,7 +14,6 @@ Access requires a verified Adversarial organization. Each user signs in with the
 - **ChatGPT workspace:** Admin console → Plugins → Add → Import marketplace, with this repository's URL.
 - **Codex:** add this repository as a plugin marketplace.
 - **Claude Code:** `/plugin marketplace add Adversarial-Risk-Management/plugins`, then `/plugin install adversarial@adversarial`.
-
 - **Microsoft Copilot Cowork:** upload `adversarial-m365-<version>.zip` from a release, in Cowork under Customize → Plugins → Add plugin, or tenant-wide in the Microsoft 365 admin center under Manage apps → Upload custom app.
 
 ## Releases

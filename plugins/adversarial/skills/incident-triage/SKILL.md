@@ -7,7 +7,7 @@ description: Log and triage security incidents in Adversarial. Creates incidents
 
 ## Opening an incident
 
-1. **Check for an existing incident.** Call `list_incidents` with a `query` built from the alert's key terms and `status` `New`, `In Progress` and `Review`. If one exists, update it or link the new one as a child with `parent_id`.
+1. **Check for an existing incident.** Call `list_incidents` with `status` `New`, `In Progress` and `Review` and a `query` of two or three distinctive terms from the alert, such as a hostname, account or detection name. Every word must appear in the incident's title, description or comments, so a long query misses matches. If nothing matches, try one other set of terms. If one exists, update it or link the new one as a child with `parent_id`.
 2. **Discover valid values.** Call these in parallel:
    - `list_incident_sources`: `source` must be one of these strings.
    - `get_threat_profile`: for threat objectives.
