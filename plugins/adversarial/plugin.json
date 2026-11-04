@@ -36,7 +36,7 @@
           "Compare our access control policy with yours and propose changes."
         ],
         "brandColor": "#000000",
-        "composerIcon": "./assets/logo.svg",
+        "composerIcon": "./assets/composer-icon.svg",
         "logo": "./assets/logo.svg",
         "logoDark": "./assets/logo-dark.svg",
         "supportURL": "https://adversarial.com/contact",
