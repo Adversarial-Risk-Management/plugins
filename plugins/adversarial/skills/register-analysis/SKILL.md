@@ -17,6 +17,8 @@ Analysis only reads. Make no changes unless the user asks for one after seeing t
 - **Overdue risks:** open risks with `due_before` set to yesterday.
 - **Unscored or unassigned:** pass the string `"null"`, for example `urgency` `["null"]` or `assigned_to` `["null"]`.
 - **By threat:** call `get_threat_profile` for the objective names, then count with one `threat_objectives` value per call.
+- **Links and tickets:** `list_risks` takes `incident_id` and `list_incidents` takes `risk_id`. Pass `"any"` for linked records, `"null"` for unlinked ones, or an ID for the records linked to it. `ticket` `"any"` or `"null"` selects records with or without a ticket, for example open Critical risks with no ticket.
+- **Imported records:** `sync` takes `active`, `paused` (a user stopped the sync) or `orphaned` (the source item is gone).
 
 ## When you need the rows
 

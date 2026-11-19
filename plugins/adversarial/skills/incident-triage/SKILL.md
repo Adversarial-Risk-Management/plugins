@@ -1,6 +1,6 @@
 ---
 name: incident-triage
-description: Log and triage security incidents in Adversarial. Creates incidents from alerts, tickets or chat, sets severity against the organization's incident response plan, links related risks or parent incidents, and keeps status and comments current. Use when the user reports an alert, breach, outage or suspicious activity, asks to open, escalate, update or close an incident, or asks for a status summary of open incidents.
+description: Log and triage security incidents in Adversarial. Creates incidents from alerts, tickets or chat, sets severity against the organization's incident response plan, links related risks or parent incidents, turns lasting weaknesses into risks, and keeps status and comments current. Use when the user reports an alert, breach, outage or suspicious activity, asks to open, escalate, update or close an incident, or asks for a status summary of open incidents.
 ---
 
 # Incident triage
@@ -18,10 +18,11 @@ description: Log and triage security incidents in Adversarial. Creates incidents
    - If the facts are too thin to choose, say what is missing and propose a provisional severity.
 4. **Record dates.** Fill `detected_date` and any containment dates you know. Bare `YYYY-MM-DD` dates are accepted.
 5. **Confirm, then create.** Show the user the title, summary, source, severity with reasoning and assignee. Call `create_incident` only after they confirm. Then report the new `INC-<n>`.
+6. **Link related risks.** If the incident exploits or reveals a known risk, find it with `list_risks` and call `link_risk_to_incident`. If it reveals a weakness that no risk covers, offer `create_risk_from_incident`, then score the new risk with the risk-intake skill. To track the work in Jira, Linear or ServiceNow, use the tickets skill.
 
 ## Updating an incident
 
-- Read it first with `get_incident`.
+- Read it first with `get_incident`. Its `risk_associations` lists the linked risks. Remove a wrong link with `unlink_risk_from_incident`.
 - Change status in order: `New` → `In Progress` → `Review` → `Closed`.
 - Record what changed and why with `add_incident_comment` alongside every status or severity change.
 - Treat closing or deleting as a final step and confirm it explicitly. `delete_incident` is for duplicates and mistakes, never for resolved incidents.

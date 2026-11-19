@@ -1,6 +1,6 @@
 ---
 name: risk-intake
-description: Turn a finding, scan result, audit note, or conversation into a well-formed Adversarial risk, or rescore an existing one against the organization's risk methodology. Checks for duplicates, uses only the organization's own sources, tags and threat objectives, and records likelihood and impact with reasoning. Use when the user asks to log, file, create, rate, score, or rescore a risk, or pastes a vulnerability or finding to track.
+description: Turn a finding, scan result, audit note, or conversation into a well-formed Adversarial risk, or rescore an existing one against the organization's risk methodology. Checks for duplicates, uses only the organization's own sources, tags and threat objectives, and records likelihood and impact with reasoning. Use when the user asks to log, file, create, rate, score, or rescore a risk, asks to turn an incident into a risk, or pastes a vulnerability or finding to track.
 ---
 
 # Risk intake and scoring
@@ -16,10 +16,13 @@ description: Turn a finding, scan result, audit note, or conversation into a wel
    - Pick `likelihood` and `impact` from its definitions.
    - Write `likelihood_reasoning` and `impact_reasoning` that cite the criteria you applied.
    - Never pass `urgency`. Adversarial computes it from likelihood × impact.
-4. **Pick the type and assignee.**
-   - Choose `type` from `Code`, `Configuration`, `Control Deficiency`, `Policy`, `Procedural`, `Vulnerability` or `Third-party`.
+4. **Pick the class and assignee.**
+   - Choose the class (`type`) from `Code`, `Configuration`, `Control Deficiency`, `Policy`, `Procedural`, `Vulnerability` or `Third-party`.
    - For `assigned_to`, use the name or email the user gave. If a name is ambiguous, ask which candidate they mean rather than guessing.
-5. **Confirm, then create.** Show the user the title, description, source, type, likelihood and impact with reasoning, threat objectives, tags and assignee in one compact block. Call `create_risk` only after they confirm. Then report the new `RSK-<n>`.
+5. **Confirm, then create.** Show the user the title, description, source, class, likelihood and impact with reasoning, threat objectives, tags and assignee in one compact block. Call `create_risk` only after they confirm. Then report the new `RSK-<n>`.
+6. **Link and track.** If the finding came from an incident, call `link_incident_to_risk`. To track remediation in Jira, Linear or ServiceNow, offer a ticket with the tickets skill.
+
+When the user wants a risk for an existing incident, call `create_risk_from_incident` instead of `create_risk`. It takes the incident's title and threat objectives, sets the initially reported urgency from the incident's severity, and links the two. It sets no likelihood or impact, so score it as in "Rescoring an existing risk".
 
 ## Rescoring an existing risk
 

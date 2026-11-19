@@ -1,7 +1,7 @@
 {
   "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
   "name": "adversarial",
-  "version": "2026.11.4",
+  "version": "2026.11.19",
   "description": "Triage, score, and govern your organization's risks, incidents, and compliance policies in Adversarial Risk Management.",
   "author": {
     "name": "Adversarial",
@@ -21,7 +21,7 @@
       "interface": {
         "displayName": "Adversarial",
         "shortDescription": "Risks, incidents, and policies",
-        "longDescription": "Work your Adversarial risk register from chat: find and score risks against your methodology, log and triage incidents, comment and assign owners, and review compliance policy changes. Every action runs with your own Adversarial permissions.",
+        "longDescription": "Work your Adversarial risk register from chat: find and score risks against your methodology, log and triage incidents, link risks and incidents, open or link Jira, Linear and ServiceNow tickets, comment and assign owners, and review compliance policy changes. Every action runs with your own Adversarial permissions.",
         "developerName": "Adversarial",
         "category": "Productivity",
         "capabilities": [

@@ -7,7 +7,7 @@ Plugins that connect AI assistants to [Adversarial Risk Management](https://adve
 - `.agents/plugins/marketplace.json` for ChatGPT and Codex
 - `.claude-plugin/marketplace.json` for Claude Code and Cowork, which declares the MCP server in the catalog entry
 
-Access requires a verified Adversarial organization. Each user signs in with their own Adversarial account, and every action runs with their permissions.
+Access requires a verified Adversarial organization. Each user signs in with their own Adversarial account, and every action runs with their permissions. The ticket tools need the `integrations:read` scope, which the `mcp` scope includes from platform release 2026.11.17. Connections made before that release must reconnect to use them.
 
 ## Install
 
