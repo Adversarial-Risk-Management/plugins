@@ -45,7 +45,8 @@ m365="$stage/m365"
 mkdir -p "$m365"
 cp -R "$src/skills" "$m365/"
 cp "$src/assets/color.png" "$src/assets/outline.png" "$m365/"
-# Descriptions are shared with the ChatGPT listing; com.microsoft holds only what Microsoft alone needs.
+# Descriptions are shared with the ChatGPT listing; com.microsoft holds only what Microsoft alone needs:
+# its publisher name and a long description with the account requirement and onboarding links.
 # The connector has no authorization block: Cowork registers its own OAuth client through our DCR endpoint.
 jq --slurpfile mcp "$src/mcp.json" '
   .extensions["com.openai"].interface as $ui
@@ -56,13 +57,13 @@ jq --slurpfile mcp "$src/mcp.json" '
       version,
       id: $ms.id,
       developer: {
-        name: .author.name,
+        name: ($ms.developerName // .author.name),
         websiteUrl: .homepage,
         privacyUrl: $ui.privacyPolicyURL,
         termsOfUseUrl: $ui.termsOfServiceURL
       },
       name: {short: $ui.displayName, full: "\($ui.displayName) Risk Management"},
-      description: {short: $ui.shortDescription, full: $ui.longDescription, features: $ms.features},
+      description: {short: $ui.shortDescription, full: ($ms.longDescription // $ui.longDescription), features: $ms.features},
       icons: {color: "color.png", outline: "outline.png"},
       accentColor: $ms.accentColor,
       agentSkills: [$skills[] | {folder: "./skills/\(.)"}],

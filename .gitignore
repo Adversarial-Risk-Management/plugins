@@ -1,1 +1,6 @@
 dist/
+# Local Partner Center publishing state (wiqd)
+.wiqd/
+appPackage/
+listing/
+partner-center.json
