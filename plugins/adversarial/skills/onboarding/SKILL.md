@@ -8,11 +8,12 @@ description: First-run setup for the Adversarial plugin. Confirms which Adversar
 Orient the user in their Adversarial organization. This skill only reads; make no changes during onboarding.
 
 1. Call `whoami`. Tell the user which organization and account they are connected as. Translate the permission list into plain terms: what they can read, and whether they can create or edit risks and incidents, comment, or manage compliance documents. If a permission they are likely to need is missing, say an Adversarial admin grants it under **Settings → Team**.
-2. Call `list_risk_sources`, `list_incident_sources`, `get_threat_profile` and `list_tags` in parallel. Summarize in a few lines how this organization classifies its work: the risk and incident sources, the threat objectives with their current likelihood and impact, and the available tags. Don't dump the raw lists.
+2. Call `list_risk_sources`, `list_incident_sources`, `get_threat_profile`, `list_tags` and `list_ticket_integrations` in parallel. Summarize in a few lines how this organization classifies its work: the risk and incident sources, the threat objectives with their current likelihood and impact, the available tags, and which ticket integrations (Jira, Linear, ServiceNow) file tickets for each register. Don't dump the raw lists. If only `list_ticket_integrations` fails with a permission error, the connection predates ticket support: tell the user to disconnect and reconnect the Adversarial plugin.
 3. Call `list_risks` with `urgency` `Critical` and `High`, `status` `New`, `Urgency Proposed`, `Remediation` and `Closure Proposed`, and `sort` `["-urgency"]`. Call `list_incidents` with `status` `New`, `In Progress` and `Review` and `sort` `["-severity"]`. Take the counts from `pagination.total_items`, then report them with the first three items of each by ID and title.
 4. Offer two or three next steps that fit what you found. For example:
    - "Score RSK-12 against your risk methodology"
    - "Log an incident from this alert"
+   - "Open a Jira ticket for RSK-12"
    - "Compare your access control policy with ours"
 
 Keep the whole reply short enough to read at a glance.
