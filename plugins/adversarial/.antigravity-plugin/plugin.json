@@ -1,0 +1,27 @@
+{
+  "$schema": "https://antigravity.google/schemas/v1/plugin.json",
+  "name": "adversarial",
+  "displayName": "Adversarial",
+  "description": "Triage, score, and govern your organization's risks, incidents, and compliance policies in Adversarial Risk Management.",
+  "version": "2026.11.20",
+  "logo": "logo.svg",
+  "suggestedPrompts": [
+    "Show my open critical and high risks.",
+    "Log an incident for this alert and suggest a severity.",
+    "Compare our access control policy with yours and propose changes."
+  ],
+  "author": {
+    "name": "Adversarial",
+    "url": "https://adversarial.com"
+  },
+  "homepage": "https://adversarial.com",
+  "repository": "https://github.com/Adversarial-Risk-Management/plugins",
+  "license": "Apache-2.0",
+  "keywords": [
+    "security",
+    "risk",
+    "incidents",
+    "compliance",
+    "grc"
+  ]
+}

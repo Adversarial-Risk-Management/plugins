@@ -24,6 +24,7 @@ jobs:
           pipx run check-jsonschema --schemafile https://developer.microsoft.com/json-schemas/teams/v1.29/MicrosoftTeams.schema.json /tmp/m365/manifest.json
           pipx run check-jsonschema --schemafile https://agent-plugins.org/schemas/1.0.0/plugin.schema.json plugins/adversarial/plugin.json
           pipx run check-jsonschema --schemafile https://agent-plugins.org/schemas/1.0.0/mcp.schema.json plugins/adversarial/mcp.json
+          pipx run check-jsonschema --schemafile https://antigravity.google/schemas/v1/plugin.json plugins/adversarial/.antigravity-plugin/plugin.json
 
       - name: Publish release
         if: startsWith(github.ref, 'refs/tags/')

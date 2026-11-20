@@ -3,6 +3,7 @@
 #   adversarial-agent-plugins-<v>.zip  Agent Plugins 1.0 (ChatGPT, Codex, Cursor, ...)
 #   adversarial-claude-<v>.zip         Claude plugin layout
 #   adversarial-m365-<v>.zip           Microsoft 365 app package (Copilot Cowork)
+#   adversarial-antigravity-<v>.zip    Antigravity plugin layout
 set -euo pipefail
 
 root=$(cd "$(dirname "$0")/.." && pwd)
@@ -11,11 +12,13 @@ dist="$root/dist"
 manifest="$src/plugin.json"
 version=$(jq -r .version "$manifest")
 
-claude_version=$(jq -r .version "$src/.claude-plugin/plugin.json")
-if [[ "$claude_version" != "$version" ]]; then
-  echo "version mismatch: plugin.json $version, .claude-plugin/plugin.json $claude_version" >&2
-  exit 1
-fi
+for host in .claude-plugin .antigravity-plugin; do
+  host_version=$(jq -r .version "$src/$host/plugin.json")
+  if [[ "$host_version" != "$version" ]]; then
+    echo "version mismatch: plugin.json $version, $host/plugin.json $host_version" >&2
+    exit 1
+  fi
+done
 
 # Cowork rejects a skill whose frontmatter name differs from its folder.
 for skill in "$src"/skills/*/; do
@@ -35,6 +38,13 @@ trap 'rm -rf "$stage"' EXIT
 (cd "$src" && zip -qr "$dist/adversarial-agent-plugins-$version.zip" . -x '.*')
 
 (cd "$src" && zip -qr "$dist/adversarial-claude-$version.zip" .claude-plugin skills assets)
+
+# Only Antigravity's files, with its manifest at the root as in a Marketplace bundle,
+# so the other hosts' plugin.json and mcp.json don't trip `agy plugin validate --strict`.
+ag="$stage/antigravity"
+mkdir -p "$ag"
+cp -R "$src/skills" "$src/mcp_config.json" "$src/README.md" "$src/logo.svg" "$src/.antigravity-plugin/plugin.json" "$ag/"
+(cd "$ag" && zip -qr "$dist/adversarial-antigravity-$version.zip" .)
 
 m365="$stage/m365"
 mkdir -p "$m365"
