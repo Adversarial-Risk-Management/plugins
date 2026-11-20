@@ -2,10 +2,12 @@
 
 Plugins that connect AI assistants to [Adversarial Risk Management](https://adversarial.com) through its MCP server (`https://api.adversarial.com/mcp`), with skills for common workflows.
 
-`plugins/adversarial/` is an [Agent Plugins](https://agent-plugins.org) package: `plugin.json`, `mcp.json`, and `skills/`. Two catalogs point at it:
+`plugins/adversarial/` holds one set of skills with two manifests:
 
-- `.agents/plugins/marketplace.json` for ChatGPT and Codex
-- `.claude-plugin/marketplace.json` for Claude Code and Cowork, which declares the MCP server in the catalog entry
+- `plugin.json` and `mcp.json`: the [Agent Plugins](https://agent-plugins.org) manifest, for ChatGPT, Codex and Cursor, listed in `.agents/plugins/marketplace.json`
+- `.claude-plugin/plugin.json`: the Claude manifest, with the MCP server inline, listed in `.claude-plugin/marketplace.json`
+
+The two manifests use different schemas, so each is a separate file. Keep their `version` the same; `scripts/build.sh` fails when they differ.
 
 Access requires a verified Adversarial organization. Each user signs in with their own Adversarial account, and every action runs with their permissions. The ticket tools need the `integrations:read` scope, which the `mcp` scope includes from platform release 2026.11.17. Connections made before that release must reconnect to use them.
 
@@ -23,11 +25,11 @@ Each release attaches one zip per host, all built from `plugins/adversarial/` by
 | Zip | Layout | Hosts |
 | --- | --- | --- |
 | `adversarial-agent-plugins-<version>.zip` | Agent Plugins 1.0, as in this repo | ChatGPT, Codex, Cursor |
-| `adversarial-claude-<version>.zip` | `.claude-plugin/plugin.json` from the Claude catalog entry | Claude |
+| `adversarial-claude-<version>.zip` | `.claude-plugin/plugin.json`, `skills/` and `assets/` | Claude |
 | `adversarial-m365-<version>.zip` | Microsoft 365 app package (`manifest.json`, `color.png`, `outline.png`) | Copilot Cowork |
 
 The M365 manifest is generated from `plugin.json`: descriptions come from the `com.openai` interface, and `extensions.com.microsoft` holds the fields only Microsoft uses. Its `id` identifies the app to Microsoft 365, so never change it. The connector declares no authorization, so Cowork registers its own OAuth client through the Adversarial MCP server's dynamic client registration.
 
-To release, bump `version` in `plugin.json` and in the `.claude-plugin/marketplace.json` entry, then push a date tag like the platform repo's, zero-padded (`2026.11.04` for version `2026.11.4`). The Release workflow builds the zips, validates the manifests, and publishes the GitHub release.
+To release, bump `version` in `plugin.json` and `.claude-plugin/plugin.json`, then push a date tag like the platform repo's, zero-padded (`2026.11.04` for version `2026.11.4`). The Release workflow builds the zips, validates the manifests, and publishes the GitHub release.
 
-Check changes with `scripts/build.sh`, `claude plugin validate .` and `claude plugin validate plugins/adversarial`.
+Check changes with `scripts/build.sh`, `claude plugin validate .` and `claude plugin validate plugins/adversarial --profile directory --strict`.

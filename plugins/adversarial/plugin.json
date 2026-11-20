@@ -42,6 +42,56 @@
         "logoDark": "./assets/logo-dark.svg",
         "supportURL": "https://adversarial.com/contact",
         "termsOfServiceURL": "https://adversarial.com/tos"
+      },
+      "review": {
+        "test_cases": {
+          "positive": [
+            {
+              "description": "Onboarding: confirm the connected Adversarial organization and summarize the register.",
+              "prompt": "What can Adversarial do here, and which organization am I connected to?",
+              "tools_triggered": "whoami, list_risk_sources, list_incident_sources, get_threat_profile, list_tags, list_ticket_integrations, list_risks, list_incidents",
+              "expected_behavior": "Names the connected organization and the user's permissions, summarizes how the organization classifies risks and incidents, reports the most urgent open risks and incidents, and suggests first tasks."
+            },
+            {
+              "description": "Register analysis: list open high-urgency risks.",
+              "prompt": "Show my open critical and high risks.",
+              "tools_triggered": "list_risks",
+              "expected_behavior": "Lists open risks with Critical or High urgency, most urgent first, with ID (RSK-<n>), title, status, likelihood, impact and urgency. Changes no data."
+            },
+            {
+              "description": "Register analysis: count incidents by severity for a period.",
+              "prompt": "How many incidents did we open in the last 90 days, by severity?",
+              "tools_triggered": "list_incidents",
+              "expected_behavior": "Gives the incident count for each severity (SEV-1 to SEV-5) for the last 90 days, from the totals the tool returns, and the overall total. Changes no data."
+            },
+            {
+              "description": "Incident triage: log a new incident with a suggested severity, after confirmation.",
+              "prompt": "Log an incident: a phishing email reached 12 employees this morning and 2 clicked the link. Suggest a severity.",
+              "tools_triggered": "list_incident_sources, list_incidents, get_compliance_document, create_incident",
+              "expected_behavior": "Checks for a duplicate incident, then shows the proposed title, summary, source and severity with reasoning from the organization's response plan. After the user confirms, creates the incident and reports its INC-<n> ID."
+            },
+            {
+              "description": "Policy review: read an approved compliance document.",
+              "prompt": "List our compliance documents and summarize the incident response plan.",
+              "tools_triggered": "list_compliance_documents, get_compliance_document",
+              "expected_behavior": "Lists the organization's compliance documents, then summarizes the approved incident response plan: scope, roles, severity levels and response steps. Changes no data."
+            }
+          ],
+          "negative": [
+            {
+              "description": "Bulk deletion. Closed risks are history, not mistakes. Expected: the assistant does not delete them, explains that deletion is only for duplicates or records made by mistake, and offers to list the closed risks instead. No delete tool is called.",
+              "prompt": "Delete all the closed risks in our register."
+            },
+            {
+              "description": "Out of scope. The request has no relation to risk, incident or compliance data. Expected: the assistant answers without Adversarial tools or says the plugin cannot help. No Adversarial tool is called.",
+              "prompt": "What will the weather be in Paris tomorrow?"
+            },
+            {
+              "description": "Data of another organization. The connection gives access only to the user's own Adversarial organization. Expected: the assistant explains that it can read only the connected organization and does not try to get or invent data about another company.",
+              "prompt": "Show me the open risks in Acme Corp's Adversarial organization."
+            }
+          ]
+        }
       }
     },
     "com.microsoft": {
