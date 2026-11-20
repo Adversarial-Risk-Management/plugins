@@ -1,0 +1,7 @@
+{
+  "mcpServers": {
+    "adversarial": {
+      "serverUrl": "https://api.adversarial.com/mcp"
+    }
+  }
+}
