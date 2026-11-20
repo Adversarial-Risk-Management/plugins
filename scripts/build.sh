@@ -11,10 +11,9 @@ dist="$root/dist"
 manifest="$src/plugin.json"
 version=$(jq -r .version "$manifest")
 
-claude_entry=$(jq '.plugins[] | select(.name == "adversarial")' "$root/.claude-plugin/marketplace.json")
-claude_version=$(jq -r .version <<<"$claude_entry")
+claude_version=$(jq -r .version "$src/.claude-plugin/plugin.json")
 if [[ "$claude_version" != "$version" ]]; then
-  echo "version mismatch: plugin.json $version, .claude-plugin/marketplace.json $claude_version" >&2
+  echo "version mismatch: plugin.json $version, .claude-plugin/plugin.json $claude_version" >&2
   exit 1
 fi
 
@@ -35,11 +34,7 @@ trap 'rm -rf "$stage"' EXIT
 
 (cd "$src" && zip -qr "$dist/adversarial-agent-plugins-$version.zip" . -x '.*')
 
-claude="$stage/claude"
-mkdir -p "$claude/.claude-plugin"
-cp -R "$src/skills" "$src/assets" "$claude/"
-jq 'del(.source, .category)' <<<"$claude_entry" > "$claude/.claude-plugin/plugin.json"
-(cd "$claude" && zip -qr "$dist/adversarial-claude-$version.zip" .)
+(cd "$src" && zip -qr "$dist/adversarial-claude-$version.zip" .claude-plugin skills assets)
 
 m365="$stage/m365"
 mkdir -p "$m365"

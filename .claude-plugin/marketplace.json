@@ -9,22 +9,8 @@
     {
       "name": "adversarial",
       "source": "./plugins/adversarial",
-      "displayName": "Adversarial",
       "description": "Triage, score, and govern your organization's risks, incidents, and compliance policies in Adversarial Risk Management.",
-      "version": "2026.11.20",
-      "author": {
-        "name": "Adversarial",
-        "url": "https://adversarial.com"
-      },
-      "homepage": "https://adversarial.com",
-      "keywords": ["security", "risk", "incidents", "compliance", "grc"],
-      "category": "productivity",
-      "mcpServers": {
-        "adversarial": {
-          "type": "http",
-          "url": "https://api.adversarial.com/mcp"
-        }
-      }
+      "category": "productivity"
     }
   ]
 }
