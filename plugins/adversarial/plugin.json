@@ -8,6 +8,7 @@
     "url": "https://adversarial.com"
   },
   "homepage": "https://adversarial.com",
+  "license": "Apache-2.0",
   "keywords": [
     "security",
     "risk",
