@@ -23,5 +23,6 @@
   },
   "license": "Apache-2.0",
   "repository": "https://github.com/Adversarial-Risk-Management/plugins",
-  "privacyPolicyUrl": "https://adversarial.com/privacy"
+  "privacyPolicyUrl": "https://adversarial.com/privacy",
+  "termsOfServiceUrl": "https://adversarial.com/tos"
 }
