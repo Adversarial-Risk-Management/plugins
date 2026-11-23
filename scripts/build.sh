@@ -43,7 +43,9 @@ trap 'rm -rf "$stage"' EXIT
 # so the other hosts' plugin.json and mcp.json don't trip `agy plugin validate --strict`.
 ag="$stage/antigravity"
 mkdir -p "$ag"
-cp -R "$src/skills" "$src/mcp_config.json" "$src/README.md" "$src/logo.svg" "$src/.antigravity-plugin/plugin.json" "$ag/"
+cp -R "$src/skills" "$src/mcp_config.json" "$src/README.md" "$src/.antigravity-plugin/plugin.json" "$ag/"
+mkdir -p "$ag/assets"
+cp "$src/assets/antigravity-logo.png" "$ag/assets/"
 (cd "$ag" && zip -qr "$dist/adversarial-antigravity-$version.zip" .)
 
 m365="$stage/m365"

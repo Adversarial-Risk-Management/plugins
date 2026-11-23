@@ -4,7 +4,7 @@
   "displayName": "Adversarial",
   "description": "Triage, score, and govern your organization's risks, incidents, and compliance policies in Adversarial Risk Management.",
   "version": "2026.11.23",
-  "logo": "logo.svg",
+  "logo": "assets/antigravity-logo.png",
   "suggestedPrompts": [
     "Show my open critical and high risks.",
     "Log an incident for this alert and suggest a severity.",

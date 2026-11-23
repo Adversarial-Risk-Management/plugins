@@ -6,9 +6,9 @@ Plugins that connect AI assistants to [Adversarial Risk Management](https://adve
 
 - `plugin.json` and `mcp.json`: the [Agent Plugins](https://agent-plugins.org) manifest, for ChatGPT, Codex and Cursor, listed in `.agents/plugins/marketplace.json`
 - `.claude-plugin/plugin.json`: the Claude manifest, with the MCP server inline, listed in `.claude-plugin/marketplace.json`
-- `.antigravity-plugin/plugin.json`, `mcp_config.json`, `logo.svg` and `README.md`: the [Antigravity](https://antigravity.google/docs/build-plugins) manifest. Antigravity reads `.antigravity-plugin/plugin.json` in place of the root one and ignores `mcp.json`.
+- `.antigravity-plugin/plugin.json`, `mcp_config.json` and `README.md`: the [Antigravity](https://antigravity.google/docs/build-plugins) manifest. Antigravity reads `.antigravity-plugin/plugin.json` in place of the root one and ignores `mcp.json`.
 
-The manifests use different schemas, so each is a separate file. Keep their `version` the same; `scripts/build.sh` fails when they differ. Antigravity's logo is an SVG that switches color in dark themes; it sits outside `assets/` because the Claude plugin directory rejects SVGs with `<style>` there.
+The manifests use different schemas, so each is a separate file. Keep their `version` the same; `scripts/build.sh` fails when they differ. Ship only PNG images: the Claude plugin directory rejects SVG files. `assets/antigravity-logo.png` sets the mark on a white disc with 10% transparent padding, so it stays legible in light and dark themes.
 
 Access requires a verified Adversarial organization. Each user signs in with their own Adversarial account, and every action runs with their permissions. The ticket tools need the `integrations:read` scope, which the `mcp` scope includes from platform release 2026.11.17. Connections made before that release must reconnect to use them.
 
@@ -29,7 +29,7 @@ Each release attaches one zip per host, all built from `plugins/adversarial/` by
 | `adversarial-agent-plugins-<version>.zip` | Agent Plugins 1.0, as in this repo | ChatGPT, Codex, Cursor |
 | `adversarial-claude-<version>.zip` | `.claude-plugin/plugin.json`, `skills/` and `assets/` | Claude |
 | `adversarial-m365-<version>.zip` | Microsoft 365 app package (`manifest.json`, `color.png`, `outline.png`) | Copilot Cowork |
-| `adversarial-antigravity-<version>.zip` | `.antigravity-plugin/plugin.json` at the root, `mcp_config.json`, `skills/`, `logo.svg`, `README.md` | Antigravity |
+| `adversarial-antigravity-<version>.zip` | `.antigravity-plugin/plugin.json` at the root, `mcp_config.json`, `skills/`, `assets/antigravity-logo.png`, `README.md` | Antigravity |
 
 The M365 manifest is generated from `plugin.json`: descriptions come from the `com.openai` interface, and `extensions.com.microsoft` holds the fields only Microsoft uses. Its `id` identifies the app to Microsoft 365, so never change it. The connector declares no authorization, so Cowork registers its own OAuth client through the Adversarial MCP server's dynamic client registration.
 
