@@ -3,7 +3,17 @@
   "mcpServers": {
     "adversarial": {
       "type": "streamable-http",
-      "url": "https://api.adversarial.com/mcp"
+      "url": "https://api.adversarial.com/mcp",
+      "extensions": {
+        "com.openai": {
+          "auth": {
+            "type": "oauth",
+            "client": {
+              "mode": "dcr"
+            }
+          }
+        }
+      }
     }
   }
 }

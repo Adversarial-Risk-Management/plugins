@@ -4,7 +4,7 @@ Plugins that connect AI assistants to [Adversarial Risk Management](https://adve
 
 `plugins/adversarial/` holds one set of skills with three manifests:
 
-- `plugin.json` and `mcp.json`: the [Agent Plugins](https://agent-plugins.org) manifest, for ChatGPT, Codex and Cursor, listed in `.agents/plugins/marketplace.json`
+- `plugin.json` and `mcp.json`: the [Agent Plugins](https://agent-plugins.org) manifest, for ChatGPT, Codex and Cursor, listed in `.agents/plugins/marketplace.json`. `mcp.json` declares OAuth with dynamic client registration under `extensions["com.openai"].auth`, which ChatGPT needs to connect on the web. The Agent Plugins 1.0.0 schema doesn't allow that key, so CI validates `mcp.json` without it.
 - `.claude-plugin/plugin.json`: the Claude manifest, with the MCP server inline, listed in `.claude-plugin/marketplace.json`
 - `.antigravity-plugin/plugin.json`, `mcp_config.json` and `README.md`: the [Antigravity](https://antigravity.google/docs/build-plugins) manifest. Antigravity reads `.antigravity-plugin/plugin.json` in place of the root one and ignores `mcp.json`.
 

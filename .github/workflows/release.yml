@@ -23,7 +23,9 @@ jobs:
           mkdir -p /tmp/m365 && unzip -q dist/adversarial-m365-*.zip -d /tmp/m365
           pipx run check-jsonschema --schemafile https://developer.microsoft.com/json-schemas/teams/v1.29/MicrosoftTeams.schema.json /tmp/m365/manifest.json
           pipx run check-jsonschema --schemafile https://agent-plugins.org/schemas/1.0.0/plugin.schema.json plugins/adversarial/plugin.json
-          pipx run check-jsonschema --schemafile https://agent-plugins.org/schemas/1.0.0/mcp.schema.json plugins/adversarial/mcp.json
+          # Agent Plugins 1.0.0 doesn't allow per-server extensions; OpenAI reads its auth from extensions["com.openai"].
+          jq 'del(.mcpServers[].extensions)' plugins/adversarial/mcp.json > /tmp/mcp.json
+          pipx run check-jsonschema --schemafile https://agent-plugins.org/schemas/1.0.0/mcp.schema.json /tmp/mcp.json
           pipx run check-jsonschema --schemafile https://antigravity.google/schemas/v1/plugin.json plugins/adversarial/.antigravity-plugin/plugin.json
 
       - name: Publish release
